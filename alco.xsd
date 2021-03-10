@@ -2,7 +2,7 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
 	<xs:element name="Файл">
 		<xs:annotation>
-			<xs:documentation>Декларация об объемах розничной продажи  алкогольной  и спиртосодержащей продукции (за исключением пива и пивных напитков, сидра, пуаре и медовухи)</xs:documentation>
+			<xs:documentation>Декларация об объеме розничной продажи алкогольной (за исключением пива и пивных напитков, сидра, пуаре и медовухи) и спиртосодержащей продукции</xs:documentation>
 		</xs:annotation>
 		<xs:complexType>
 			<xs:sequence>
@@ -43,7 +43,7 @@
 							<xs:simpleType>
 								<xs:restriction base="xs:string">
 									<xs:length value="2"/>
-									<xs:enumeration value="11"/>
+									<xs:enumeration value="37"/>
 								</xs:restriction>
 							</xs:simpleType>
 						</xs:attribute>
@@ -119,58 +119,6 @@
 								</xs:annotation>
 								<xs:complexType>
 									<xs:sequence>
-										<xs:element name="Лицензии" minOccurs="0" maxOccurs="unbounded">
-											<xs:complexType>
-												<xs:sequence>
-													<xs:element name="Лицензия">
-														<xs:complexType>
-															<xs:attribute name="ИдЛицензии" type="xs:int" use="required">
-																<xs:annotation>
-																	<xs:documentation>Ид лицензии</xs:documentation>
-																</xs:annotation>
-															</xs:attribute>
-															<xs:attribute name="П000000000011" use="required">
-																<xs:annotation>
-																	<xs:documentation>Серия лицензии, номер</xs:documentation>
-																	<xs:documentation>
-											Является обязательным, если выданная лицензия имеет такой реквизит </xs:documentation>
-																</xs:annotation>
-																<xs:simpleType>
-																	<xs:restriction base="xs:string">
-																		<xs:maxLength value="100"/>
-																	</xs:restriction>
-																</xs:simpleType>
-															</xs:attribute>
-															<xs:attribute name="П000000000012" type="ДатаТип" use="required">
-																<xs:annotation>
-																	<xs:documentation>Дата выдачи</xs:documentation>
-																</xs:annotation>
-															</xs:attribute>
-															<xs:attribute name="П000000000013" type="ДатаТип" use="required">
-																<xs:annotation>
-																	<xs:documentation>Дата окончания</xs:documentation>
-																	<xs:documentation>
-											Является обязательным, если выданная лицензия имеет такой реквизит </xs:documentation>
-																</xs:annotation>
-															</xs:attribute>
-															<xs:attribute name="П000000000014" use="required">
-																<xs:annotation>
-																	<xs:documentation>Кем выдана</xs:documentation>
-																	<xs:documentation>
-											Является обязательным, если выданная лицензия имеет такой реквизит </xs:documentation>
-																</xs:annotation>
-																<xs:simpleType>
-																	<xs:restriction base="xs:string">
-																		<xs:maxLength value="1000"/>
-																		<xs:minLength value="3"/>
-																	</xs:restriction>
-																</xs:simpleType>
-															</xs:attribute>
-														</xs:complexType>
-													</xs:element>
-												</xs:sequence>
-											</xs:complexType>
-										</xs:element>
 										<xs:choice>
 											<xs:element name="ЮЛ">
 												<xs:annotation>
@@ -208,6 +156,16 @@
 												</xs:complexType>
 											</xs:element>
 										</xs:choice>
+										<xs:element name="П000000000011" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>Вид деятельности, указанный в лицензии</xs:documentation>
+											</xs:annotation>
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:maxLength value="100"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
 									</xs:sequence>
 									<xs:attribute name="ИдПостав" type="xs:int" use="required">
 										<xs:annotation>
@@ -364,49 +322,39 @@
 																		<xs:documentation>Сведения о лицензиях</xs:documentation>
 																	</xs:annotation>
 																	<xs:complexType>
-																		<xs:attribute name="ВидДеят" use="required">
-																			<xs:annotation>
-																				<xs:documentation>
-                                          Вид деятельности
-                                          по лицензии
-                                        </xs:documentation>
-																				<xs:documentation>
-                                          Является обязательным, если выданная лицензия имеет такой реквизит
-                                        </xs:documentation>
-																			</xs:annotation>
-																			<xs:simpleType>
-																				<xs:restriction base="xs:string">
-																					<xs:length value="2"/>
-																					<xs:enumeration value="06"/>
-																				</xs:restriction>
-																			</xs:simpleType>
-																		</xs:attribute>
-																		<xs:attribute name="СерНомЛиц" use="required">
-																			<xs:annotation>
-																				<xs:documentation>Серия и номер лицензии</xs:documentation>
-																			</xs:annotation>
-																			<xs:simpleType>
-																				<xs:restriction base="xs:string">
-																					<xs:maxLength value="50"/>
-																				</xs:restriction>
-																			</xs:simpleType>
-																		</xs:attribute>
-																		<xs:attribute name="ДатаНачЛиц" type="ДатаТип" use="required">
-																			<xs:annotation>
-																				<xs:documentation>Дата получения</xs:documentation>
-																			</xs:annotation>
-																		</xs:attribute>
-																		<xs:attribute name="ДатаОконЛиц" type="ДатаТип" use="required">
-																			<xs:annotation>
-																				<xs:documentation>
-                                          Срок действия
-                                          лицензии
-                                        </xs:documentation>
-																				<xs:documentation>
-                                          Является обязательным, если выданная лицензия имеет такой реквизит
-                                        </xs:documentation>
-																			</xs:annotation>
-																		</xs:attribute>
+																		<xs:sequence>
+																			<xs:element name="ВидДеят">
+																				<xs:annotation>
+																					<xs:documentation>Вид деятельности по лицензии</xs:documentation>
+																				</xs:annotation>
+																				<xs:simpleType>
+																					<xs:restriction base="xs:string">
+																						<xs:length value="2"/>
+																						<xs:enumeration value="06"/>
+																					</xs:restriction>
+																				</xs:simpleType>
+																			</xs:element>
+																			<xs:element name="СерНомЛиц">
+																				<xs:annotation>
+																					<xs:documentation>Серия и номер лицензии</xs:documentation>
+																				</xs:annotation>
+																				<xs:simpleType>
+																					<xs:restriction base="xs:string">
+																						<xs:maxLength value="50"/>
+																					</xs:restriction>
+																				</xs:simpleType>
+																			</xs:element>
+																			<xs:element name="ДатаНачЛиц" type="ДатаТип">
+																				<xs:annotation>
+																					<xs:documentation>Дата получения</xs:documentation>
+																				</xs:annotation>
+																			</xs:element>
+																			<xs:element name="ДатаОконЛиц" type="ДатаТип">
+																				<xs:annotation>
+																					<xs:documentation>Срок действия лицензии</xs:documentation>
+																				</xs:annotation>
+																			</xs:element>
+																		</xs:sequence>
 																	</xs:complexType>
 																</xs:element>
 															</xs:sequence>
@@ -417,23 +365,19 @@
 															<xs:documentation>Нелицензируемая деятельность</xs:documentation>
 														</xs:annotation>
 														<xs:complexType>
-															<xs:attribute name="ВидДеят" use="required">
-																<xs:annotation>
-																	<xs:documentation>
-                                    Вид деятельности
-                                    по лицензии
-                                  </xs:documentation>
-																	<xs:documentation>
-                                    Является обязательным, если выданная лицензия имеет такой реквизит
-                                  </xs:documentation>
-																</xs:annotation>
-																<xs:simpleType>
-																	<xs:restriction base="xs:string">
-																		<xs:length value="2"/>
-																		<xs:enumeration value="12"/>
-																	</xs:restriction>
-																</xs:simpleType>
-															</xs:attribute>
+															<xs:sequence>
+																<xs:element name="ВидДеят">
+																	<xs:annotation>
+																		<xs:documentation>Вид нелицензируемой деятельности</xs:documentation>
+																	</xs:annotation>
+																	<xs:simpleType>
+																		<xs:restriction base="xs:string">
+																			<xs:length value="2"/>
+																			<xs:enumeration value="12"/>
+																		</xs:restriction>
+																	</xs:simpleType>
+																</xs:element>
+															</xs:sequence>
 														</xs:complexType>
 													</xs:element>
 												</xs:choice>
@@ -462,7 +406,7 @@
 											</xs:annotation>
 											<xs:complexType>
 												<xs:sequence>
-													<xs:element name="СведПроизвИмпорт" maxOccurs="unbounded">
+													<xs:element name="СведПроизвИмпортер" maxOccurs="unbounded">
 														<xs:annotation>
 															<xs:documentation>Сведения по каждому производителю/импортеру</xs:documentation>
 														</xs:annotation>
@@ -474,14 +418,14 @@
 																	</xs:annotation>
 																	<xs:complexType>
 																		<xs:sequence>
-																			<xs:element name="Продукция" maxOccurs="unbounded">
+																			<xs:element name="Поставка" minOccurs="0" maxOccurs="unbounded">
 																				<xs:complexType>
-																					<xs:attribute name="П200000000013" type="ДатаТип" use="required">
+																					<xs:attribute name="П000000000013" type="ДатаТип" use="required">
 																						<xs:annotation>
-																							<xs:documentation>Дата закупки</xs:documentation>
+																							<xs:documentation>Дата закупки (дата поставки поставщиком)</xs:documentation>
 																						</xs:annotation>
 																					</xs:attribute>
-																					<xs:attribute name="П200000000014" use="required">
+																					<xs:attribute name="П000000000014">
 																						<xs:annotation>
 																							<xs:documentation>Номер товарно-транспортной наладной</xs:documentation>
 																						</xs:annotation>
@@ -491,7 +435,7 @@
 																							</xs:restriction>
 																						</xs:simpleType>
 																					</xs:attribute>
-																					<xs:attribute name="П200000000015" use="required">
+																					<xs:attribute name="П000000000015">
 																						<xs:annotation>
 																							<xs:documentation>Номер  таможенной декларации</xs:documentation>
 																						</xs:annotation>
@@ -501,9 +445,49 @@
 																							</xs:restriction>
 																						</xs:simpleType>
 																					</xs:attribute>
-																					<xs:attribute name="П200000000016" use="required">
+																					<xs:attribute name="П000000000016">
 																						<xs:annotation>
 																							<xs:documentation>Объем закупленной продукции</xs:documentation>
+																						</xs:annotation>
+																						<xs:simpleType>
+																							<xs:restriction base="xs:decimal">
+																								<xs:totalDigits value="15"/>
+																								<xs:fractionDigits value="5"/>
+																							</xs:restriction>
+																						</xs:simpleType>
+																					</xs:attribute>
+																				</xs:complexType>
+																			</xs:element>
+																			<xs:element name="Возврат" minOccurs="0" maxOccurs="unbounded">
+																				<xs:complexType>
+																					<xs:attribute name="П000000000013" type="ДатаТип" use="required">
+																						<xs:annotation>
+																							<xs:documentation>Дата возврата</xs:documentation>
+																						</xs:annotation>
+																					</xs:attribute>
+																					<xs:attribute name="П000000000014">
+																						<xs:annotation>
+																							<xs:documentation>Номер товарно-транспортной наладной</xs:documentation>
+																						</xs:annotation>
+																						<xs:simpleType>
+																							<xs:restriction base="xs:string">
+																								<xs:maxLength value="50"/>
+																							</xs:restriction>
+																						</xs:simpleType>
+																					</xs:attribute>
+																					<xs:attribute name="П000000000015">
+																						<xs:annotation>
+																							<xs:documentation>Номер  таможенной декларации</xs:documentation>
+																						</xs:annotation>
+																						<xs:simpleType>
+																							<xs:restriction base="xs:string">
+																								<xs:maxLength value="50"/>
+																							</xs:restriction>
+																						</xs:simpleType>
+																					</xs:attribute>
+																					<xs:attribute name="П000000000016">
+																						<xs:annotation>
+																							<xs:documentation>Объем возвращенной поставщику продукции</xs:documentation>
 																						</xs:annotation>
 																						<xs:simpleType>
 																							<xs:restriction base="xs:decimal">
@@ -530,11 +514,6 @@
 																				<xs:documentation>Идентификатор элемента справочника "Поставщики"</xs:documentation>
 																			</xs:annotation>
 																		</xs:attribute>
-																		<xs:attribute name="ИдЛицензии" type="xs:int">
-																			<xs:annotation>
-																				<xs:documentation>Идентификатор элемента справочника "Лицензии"</xs:documentation>
-																			</xs:annotation>
-																		</xs:attribute>
 																	</xs:complexType>
 																</xs:element>
 																<xs:element name="Движение" minOccurs="0" maxOccurs="unbounded">
@@ -544,7 +523,7 @@
 																				<xs:documentation>Номер по порядку</xs:documentation>
 																			</xs:annotation>
 																		</xs:attribute>
-																		<xs:attribute name="П100000000006" use="required">
+																		<xs:attribute name="П100000000006">
 																			<xs:annotation>
 																				<xs:documentation>Остаток на начало отчетного периода (дал)</xs:documentation>
 																			</xs:annotation>
@@ -579,7 +558,7 @@
 																		</xs:attribute>
 																		<xs:attribute name="П100000000009" use="required">
 																			<xs:annotation>
-																				<xs:documentation>Поступление (закупки) по импорту (дал)</xs:documentation>
+																				<xs:documentation>Поступление (закупки) итого (дал)</xs:documentation>
 																			</xs:annotation>
 																			<xs:simpleType>
 																				<xs:restriction base="xs:decimal">
@@ -590,7 +569,7 @@
 																		</xs:attribute>
 																		<xs:attribute name="П100000000010" use="required">
 																			<xs:annotation>
-																				<xs:documentation>Поступление (закупки) итого (дал)</xs:documentation>
+																				<xs:documentation>Поступление (возврат от покупателей) (дал)</xs:documentation>
 																			</xs:annotation>
 																			<xs:simpleType>
 																				<xs:restriction base="xs:decimal">
@@ -601,7 +580,7 @@
 																		</xs:attribute>
 																		<xs:attribute name="П100000000011" use="required">
 																			<xs:annotation>
-																				<xs:documentation>Поступление (возврат от покупателей) (дал)</xs:documentation>
+																				<xs:documentation>Прочие поступления (дал)</xs:documentation>
 																			</xs:annotation>
 																			<xs:simpleType>
 																				<xs:restriction base="xs:decimal">
@@ -612,7 +591,7 @@
 																		</xs:attribute>
 																		<xs:attribute name="П100000000012" use="required">
 																			<xs:annotation>
-																				<xs:documentation>Прочие поступления (дал)</xs:documentation>
+																				<xs:documentation>Поступление (перемещение внутри одной организации) (дал)</xs:documentation>
 																			</xs:annotation>
 																			<xs:simpleType>
 																				<xs:restriction base="xs:decimal">
@@ -623,7 +602,7 @@
 																		</xs:attribute>
 																		<xs:attribute name="П100000000013" use="required">
 																			<xs:annotation>
-																				<xs:documentation>Поступление (перемещение внутри одной организации) (дал)</xs:documentation>
+																				<xs:documentation>Поступление всего (дал)</xs:documentation>
 																			</xs:annotation>
 																			<xs:simpleType>
 																				<xs:restriction base="xs:decimal">
@@ -634,7 +613,7 @@
 																		</xs:attribute>
 																		<xs:attribute name="П100000000014" use="required">
 																			<xs:annotation>
-																				<xs:documentation>Поступление всего (дал)</xs:documentation>
+																				<xs:documentation>Расход (объем розничной продажи) (дал)</xs:documentation>
 																			</xs:annotation>
 																			<xs:simpleType>
 																				<xs:restriction base="xs:decimal">
@@ -645,7 +624,7 @@
 																		</xs:attribute>
 																		<xs:attribute name="П100000000015" use="required">
 																			<xs:annotation>
-																				<xs:documentation>Расход (объем розничной продажи) (дал)</xs:documentation>
+																				<xs:documentation>Прочий расход (дал)</xs:documentation>
 																			</xs:annotation>
 																			<xs:simpleType>
 																				<xs:restriction base="xs:decimal">
@@ -656,7 +635,7 @@
 																		</xs:attribute>
 																		<xs:attribute name="П100000000016" use="required">
 																			<xs:annotation>
-																				<xs:documentation>Прочий расход (дал)</xs:documentation>
+																				<xs:documentation>Возврат поставщику (дал)</xs:documentation>
 																			</xs:annotation>
 																			<xs:simpleType>
 																				<xs:restriction base="xs:decimal">
@@ -667,7 +646,7 @@
 																		</xs:attribute>
 																		<xs:attribute name="П100000000017" use="required">
 																			<xs:annotation>
-																				<xs:documentation>Возврат поставщику (дал)</xs:documentation>
+																				<xs:documentation>Расход (перемещение внутри одной организации) (дал)</xs:documentation>
 																			</xs:annotation>
 																			<xs:simpleType>
 																				<xs:restriction base="xs:decimal">
@@ -678,7 +657,7 @@
 																		</xs:attribute>
 																		<xs:attribute name="П100000000018" use="required">
 																			<xs:annotation>
-																				<xs:documentation>Расход (перемещение внутри одной организации) (дал)</xs:documentation>
+																				<xs:documentation>Расход всего (дал)</xs:documentation>
 																			</xs:annotation>
 																			<xs:simpleType>
 																				<xs:restriction base="xs:decimal">
@@ -689,17 +668,6 @@
 																		</xs:attribute>
 																		<xs:attribute name="П100000000019" use="required">
 																			<xs:annotation>
-																				<xs:documentation>Расход всего (дал)</xs:documentation>
-																			</xs:annotation>
-																			<xs:simpleType>
-																				<xs:restriction base="xs:decimal">
-																					<xs:totalDigits value="15"/>
-																					<xs:fractionDigits value="5"/>
-																				</xs:restriction>
-																			</xs:simpleType>
-																		</xs:attribute>
-																		<xs:attribute name="П100000000020" use="required">
-																			<xs:annotation>
 																				<xs:documentation>Остаток продукции на конец отчетного периода - всего (дал)</xs:documentation>
 																			</xs:annotation>
 																			<xs:simpleType>
@@ -709,7 +677,7 @@
 																				</xs:restriction>
 																			</xs:simpleType>
 																		</xs:attribute>
-																		<xs:attribute name="П100000000021" use="required">
+																		<xs:attribute name="П100000000020" use="required">
 																			<xs:annotation>
 																				<xs:documentation>В том числе остаток продукции, маркированной федеральными специальными и (или) акцизными марками, требования к которым утрачивают силу (дал)</xs:documentation>
 																			</xs:annotation>
@@ -734,6 +702,14 @@
 																</xs:annotation>
 															</xs:attribute>
 														</xs:complexType>
+														<xs:unique name="UX_Поставщик">
+															<xs:selector xpath="Поставщик"/>
+															<xs:field xpath="@ПN"/>
+														</xs:unique>
+														<xs:unique name="UX_Движение">
+															<xs:selector xpath="Движение"/>
+															<xs:field xpath="@ПN"/>
+														</xs:unique>
 													</xs:element>
 												</xs:sequence>
 												<xs:attribute name="ПN" type="xs:int" use="required">
@@ -810,6 +786,10 @@
 													</xs:simpleType>
 												</xs:attribute>
 											</xs:complexType>
+											<xs:unique name="UX_СведПроизвИмпортер">
+												<xs:selector xpath="СведПроизвИмпортер"/>
+												<xs:field xpath="@ПN"/>
+											</xs:unique>
 										</xs:element>
 									</xs:sequence>
 									<xs:attribute name="Наим" use="required">
@@ -827,12 +807,11 @@
 											<xs:documentation>КПП организации</xs:documentation>
 										</xs:annotation>
 									</xs:attribute>
-									<xs:attribute name="НаличиеОборота" type="xs:boolean" use="required">
-										<xs:annotation>
-											<xs:documentation>Признак, указывающий что по организации/ филиалу был оборот</xs:documentation>
-										</xs:annotation>
-									</xs:attribute>
 								</xs:complexType>
+								<xs:unique name="UX_Оборот">
+									<xs:selector xpath="Оборот"/>
+									<xs:field xpath="@ПN"/>
+								</xs:unique>
 							</xs:element>
 						</xs:sequence>
 					</xs:complexType>
@@ -854,7 +833,7 @@
 					<xs:restriction base="xs:string">
 						<xs:minLength value="1"/>
 						<xs:maxLength value="5"/>
-						<xs:enumeration value="4.31"/>
+						<xs:enumeration value="4.4"/>
 					</xs:restriction>
 				</xs:simpleType>
 			</xs:attribute>
@@ -874,25 +853,17 @@
 			<xs:selector xpath="*/Поставщики"/>
 			<xs:field xpath="@ИдПостав"/>
 		</xs:key>
-		<xs:key name="ПК_Лиц">
-			<xs:selector xpath="*/Поставщики/Лицензии/Лицензия"/>
-			<xs:field xpath="@ИдЛицензии"/>
-		</xs:key>
 		<xs:key name="ПК_Произв">
 			<xs:selector xpath="*/ПроизводителиИмпортеры"/>
 			<xs:field xpath="@ИДПроизвИмп"/>
 		</xs:key>
 		<xs:keyref name="ВК_Постав" refer="ПК_Постав">
-			<xs:selector xpath="*/ОбъемОборота/Оборот/СведПроизвИмпорт/Поставщик"/>
+			<xs:selector xpath="*/ОбъемОборота/Оборот/СведПроизвИмпортер/Поставщик"/>
 			<xs:field xpath="@ИдПоставщика"/>
 		</xs:keyref>
 		<xs:keyref name="ВК_Произв" refer="ПК_Произв">
-			<xs:selector xpath="*/ОбъемОборота/Оборот/СведПроизвИмпорт"/>
+			<xs:selector xpath="*/ОбъемОборота/Оборот/СведПроизвИмпортер"/>
 			<xs:field xpath="@ИдПроизвИмп"/>
-		</xs:keyref>
-		<xs:keyref name="ВК_Лиц" refer="ПК_Лиц">
-			<xs:selector xpath="*/ОбъемОборота/Оборот/СведПроизвИмпорт/Поставщик"/>
-			<xs:field xpath="@ИдЛицензии"/>
 		</xs:keyref>
 	</xs:element>
 	<xs:complexType name="ФИООтветТип">
